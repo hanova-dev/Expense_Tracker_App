@@ -1,4 +1,4 @@
-# SmartWallet - Expense Tracker (Phase 3)
+# SmartWallet - Expense Tracker 
 
 A feature-rich, offline-first personal expense tracker built with Flutter, focusing on multi-currency support and rich data visualization.
 
