@@ -29,3 +29,10 @@ When a user switches their global currency, the app instantly recalculates all h
 
 ## Charting Library
 This project uses `fl_chart`. It was chosen over `syncfusion_flutter_charts` due to its completely open-source nature, high customizability, and excellent support for interactive, smooth animations which are critical for a premium UX feel.
+
+## ⬇️ Download App
+
+[![Download APK](https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android)](https://github.com/hanova-dev/Expense_Tracker_App/releases/latest)
+
+> ⚠️ Before installing, enable "Unknown Sources" on your phone:
+> Settings → Security → Install Unknown Apps → Enable
