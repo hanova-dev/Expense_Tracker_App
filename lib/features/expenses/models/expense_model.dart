@@ -8,6 +8,7 @@ class Expense {
   final DateTime date;
   final String? note;
   final String originalCurrency;
+  final bool isIncome;
 
   Expense({
     required this.id,
@@ -17,6 +18,7 @@ class Expense {
     required this.date,
     this.note,
     required this.originalCurrency,
+    this.isIncome = false,
   });
 
   Expense copyWith({
@@ -27,6 +29,7 @@ class Expense {
     DateTime? date,
     String? note,
     String? originalCurrency,
+    bool? isIncome,
   }) {
     return Expense(
       id: id ?? this.id,
@@ -36,6 +39,7 @@ class Expense {
       date: date ?? this.date,
       note: note ?? this.note,
       originalCurrency: originalCurrency ?? this.originalCurrency,
+      isIncome: isIncome ?? this.isIncome,
     );
   }
 }
@@ -58,13 +62,15 @@ class ExpenseAdapter extends TypeAdapter<Expense> {
       date: fields[4] as DateTime,
       note: fields[5] as String?,
       originalCurrency: fields[6] as String,
+      // field 7 is absent in old records — default false keeps them as expenses
+      isIncome: (fields[7] as bool?) ?? false,
     );
   }
 
   @override
   void write(BinaryWriter writer, Expense obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -78,6 +84,8 @@ class ExpenseAdapter extends TypeAdapter<Expense> {
       ..writeByte(5)
       ..write(obj.note)
       ..writeByte(6)
-      ..write(obj.originalCurrency);
+      ..write(obj.originalCurrency)
+      ..writeByte(7)
+      ..write(obj.isIncome);
   }
 }
