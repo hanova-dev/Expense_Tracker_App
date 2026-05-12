@@ -227,7 +227,7 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen>
                             SizedBox(
                               width: 112,
                               child: DropdownButtonFormField<String>(
-                                value: _selectedCurrency,
+                                initialValue: _selectedCurrency,
                                 decoration: const InputDecoration(
                                     labelText: 'Currency'),
                                 items:
