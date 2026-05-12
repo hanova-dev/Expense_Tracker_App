@@ -11,23 +11,25 @@ class AppConstants {
     'Other',
   ];
 
+  // Upgraded icon set — rounded variants look more polished
   static const Map<String, IconData> categoryIcons = {
-    'Food': Icons.restaurant,
-    'Transport': Icons.directions_car,
-    'Health': Icons.local_hospital,
-    'Shopping': Icons.shopping_cart,
-    'Entertainment': Icons.movie,
-    'Bills': Icons.receipt,
-    'Other': Icons.more_horiz,
+    'Food': Icons.restaurant_rounded,
+    'Transport': Icons.directions_car_rounded,
+    'Health': Icons.favorite_rounded,
+    'Shopping': Icons.shopping_bag_rounded,
+    'Entertainment': Icons.movie_rounded,
+    'Bills': Icons.receipt_long_rounded,
+    'Other': Icons.tag_rounded,
   };
 
+  // Curated, harmonious palette — no plain Material swatch colors
   static const Map<String, Color> categoryColors = {
-    'Food': Colors.orange,
-    'Transport': Colors.blue,
-    'Health': Colors.red,
-    'Shopping': Colors.purple,
-    'Entertainment': Colors.pink,
-    'Bills': Colors.teal,
-    'Other': Colors.grey,
+    'Food': Color(0xFFFF8C42),        // warm amber-orange
+    'Transport': Color(0xFF5B8DEF),   // cornflower blue
+    'Health': Color(0xFFEF5DA8),      // rose pink
+    'Shopping': Color(0xFF9B72CF),    // soft violet
+    'Entertainment': Color(0xFFFF6B9D), // hot pink
+    'Bills': Color(0xFF00BFA5),       // teal (matches brand accent)
+    'Other': Color(0xFF8A9BB0),       // slate blue-gray
   };
 }

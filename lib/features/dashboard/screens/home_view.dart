@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:hive/hive.dart';
 import '../../../core/currency_service.dart';
@@ -78,27 +79,52 @@ class _HomeViewState extends ConsumerState<HomeView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Page title row
+                  // Page title row with greeting
                   Row(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Smart Wallet',
-                            style: theme.textTheme.headlineSmall?.copyWith(
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: -0.5,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              _greeting(),
+                              style: GoogleFonts.inter(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: theme.colorScheme.primary,
+                                letterSpacing: 0.3,
+                              ),
                             ),
-                          ),
-                          Text(
-                            DateFormat('MMMM yyyy').format(DateTime.now()),
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.colorScheme.onSurface
-                                  .withOpacity(0.45),
+                            Text(
+                              'SmartWallet',
+                              style: theme.textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: -0.5,
+                              ),
                             ),
-                          ),
-                        ],
+                            Text(
+                              DateFormat('MMMM yyyy').format(DateTime.now()),
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: theme.colorScheme.onSurface
+                                    .withValues(alpha: 0.45),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Notification-style avatar button
+                      Container(
+                        width: 44,
+                        height: 44,
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.primary.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Icon(
+                          Icons.notifications_none_rounded,
+                          color: theme.colorScheme.primary,
+                          size: 22,
+                        ),
                       ),
                     ],
                   ),
@@ -163,14 +189,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     Icon(
                       Icons.receipt_long_outlined,
                       size: 64,
-                      color: theme.colorScheme.onSurface.withOpacity(0.18),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.18),
                     ),
                     const SizedBox(height: 16),
                     Text(
                       'No transactions yet',
                       style: theme.textTheme.titleMedium?.copyWith(
                         color:
-                            theme.colorScheme.onSurface.withOpacity(0.4),
+                            theme.colorScheme.onSurface.withValues(alpha: 0.4),
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -178,7 +204,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       'Tap + to add your first one',
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color:
-                            theme.colorScheme.onSurface.withOpacity(0.28),
+                            theme.colorScheme.onSurface.withValues(alpha: 0.28),
                       ),
                     ),
                   ],
@@ -212,6 +238,15 @@ class _HomeViewState extends ConsumerState<HomeView> {
       ),
     );
   }
+
+  // ── Time-of-day greeting ────────────────────────────────────────────────
+  static String _greeting() {
+    final h = DateTime.now().hour;
+    if (h < 12) return 'Good morning ☀️';
+    if (h < 17) return 'Good afternoon 🌤';
+    if (h < 21) return 'Good evening 🌇';
+    return 'Good night 🌙';
+  }
 }
 
 // ── Balance card ──────────────────────────────────────────────────────────────
@@ -238,13 +273,13 @@ class _BalanceCard extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [
             theme.colorScheme.primary,
-            theme.colorScheme.primary.withOpacity(0.78),
+            theme.colorScheme.primary.withValues(alpha: 0.78),
           ],
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.primary.withOpacity(0.32),
+            color: theme.colorScheme.primary.withValues(alpha: 0.32),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -256,7 +291,7 @@ class _BalanceCard extends StatelessWidget {
           Text(
             'Net Balance · This Month',
             style: TextStyle(
-                color: Colors.white.withOpacity(0.75),
+                color: Colors.white.withValues(alpha: 0.75),
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
                 letterSpacing: 0.3),
@@ -285,7 +320,7 @@ class _BalanceCard extends StatelessWidget {
               Container(
                   width: 1,
                   height: 36,
-                  color: Colors.white.withOpacity(0.2)),
+                  color: Colors.white.withValues(alpha: 0.2)),
               Expanded(
                 child: _MiniMetric(
                   label: 'Expenses',
@@ -324,7 +359,7 @@ class _MiniMetric extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.22),
+              color: color.withValues(alpha: 0.22),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(icon, color: color, size: 14),
@@ -336,7 +371,7 @@ class _MiniMetric extends StatelessWidget {
               children: [
                 Text(label,
                     style: TextStyle(
-                        color: Colors.white.withOpacity(0.65),
+                        color: Colors.white.withValues(alpha: 0.65),
                         fontSize: 11,
                         fontWeight: FontWeight.w500)),
                 _AnimatedCounter(
@@ -362,7 +397,7 @@ class _AnimatedCounter extends StatefulWidget {
   final double value;
   final TextStyle? style;
 
-  const _AnimatedCounter({required this.value, this.style, super.key});
+  const _AnimatedCounter({required this.value, this.style});
 
   @override
   State<_AnimatedCounter> createState() => _AnimatedCounterState();
@@ -429,7 +464,7 @@ class _BudgetProgressCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 2)),
         ],
@@ -456,7 +491,7 @@ class _BudgetProgressCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             child: LinearProgressIndicator(
               value: progress,
-              backgroundColor: Colors.grey.withOpacity(0.18),
+              backgroundColor: Colors.grey.withValues(alpha: 0.18),
               valueColor: AlwaysStoppedAnimation<Color>(
                   isOver ? _kExpense : theme.colorScheme.primary),
               minHeight: 8,
@@ -489,7 +524,7 @@ class _AnimatedExpenseTile extends StatefulWidget {
   final VoidCallback onEdit;
   final VoidCallback onDelete;
 
-  _AnimatedExpenseTile({
+  const _AnimatedExpenseTile({
     required Key key,
     required this.expense,
     required this.globalCurrency,
@@ -601,7 +636,7 @@ class _AnimatedExpenseTileState extends State<_AnimatedExpenseTile>
                     color: Color.lerp(
                       theme.cardTheme.color ??
                           theme.colorScheme.surfaceContainerHighest,
-                      theme.colorScheme.primary.withOpacity(0.18),
+                      theme.colorScheme.primary.withValues(alpha: 0.18),
                       t,
                     ),
                     borderRadius: BorderRadius.circular(16),
@@ -610,7 +645,7 @@ class _AnimatedExpenseTileState extends State<_AnimatedExpenseTile>
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.045),
+                        color: Colors.black.withValues(alpha: 0.045),
                         blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),
@@ -683,7 +718,7 @@ class _TileContent extends StatelessWidget {
               width: 44,
               height: 44,
               decoration: BoxDecoration(
-                color: catColor.withOpacity(0.12),
+                color: catColor.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(
@@ -714,7 +749,7 @@ class _TileContent extends StatelessWidget {
                     '${DateFormat('MMM dd').format(expense.date)}',
                     style: TextStyle(
                       fontSize: 12,
-                      color: theme.colorScheme.onSurface.withOpacity(0.48),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.48),
                     ),
                   ),
                 ],
@@ -743,7 +778,7 @@ class _TileContent extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withOpacity(0.38),
+                          .withValues(alpha: 0.38),
                     ),
                   ),
               ],
@@ -863,7 +898,7 @@ class _ActionBtn extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         child: Padding(
           padding: const EdgeInsets.all(5),
-          child: Icon(icon, size: 18, color: color.withOpacity(0.75)),
+          child: Icon(icon, size: 18, color: color.withValues(alpha: 0.75)),
         ),
       ),
     );
