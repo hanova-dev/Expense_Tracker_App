@@ -1,12 +1,14 @@
-
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import '../features/onboarding/screens/onboarding_screen.dart';
 import '../features/dashboard/screens/dashboard_screen.dart';
 import '../features/expenses/screens/add_expense_screen.dart';
+import '../features/expenses/models/expense_model.dart';
 
 final goRouter = GoRouter(
-  initialLocation: Hive.box('settings').containsKey('globalCurrency') ? '/dashboard' : '/onboarding',
+  initialLocation: Hive.box('settings').containsKey('globalCurrency')
+      ? '/dashboard'
+      : '/onboarding',
   routes: [
     GoRoute(
       path: '/onboarding',
@@ -18,7 +20,9 @@ final goRouter = GoRouter(
     ),
     GoRoute(
       path: '/add-expense',
-      builder: (context, state) => const AddExpenseScreen(),
+      // extra is Expense when editing, null when adding new
+      builder: (context, state) =>
+          AddExpenseScreen(editExpense: state.extra as Expense?),
     ),
   ],
 );
